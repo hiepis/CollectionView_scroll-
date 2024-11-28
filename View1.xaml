@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    x:Class="MauiApp2.View1"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Name="BoxName">
+    <Grid
+        x:Name="CustomGrid"
+        BackgroundColor="{Binding BackgroundContent, Source={x:Reference BoxName}, Mode=TwoWay}"
+        HeightRequest="45"
+        WidthRequest="200">
+        <!--  Outer BoxView for the border  -->
+        <BoxView
+            BackgroundColor="White"
+            CornerRadius="8"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="FillAndExpand"
+            Color="Yellow">
+            <BoxView.Triggers>
+                <DataTrigger
+                    Binding="{Binding Source={x:Reference CustomGrid}, Path=BackgroundColor}"
+                    TargetType="BoxView"
+                    Value="Green">
+                    <Setter Property="Color" Value="Blue" />
+                    <!--  Multiple Setter elements are allowed  -->
+                </DataTrigger>
+                <DataTrigger
+                    Binding="{Binding Source={x:Reference CustomGrid}, Path=BackgroundColor}"
+                    TargetType="BoxView"
+                    Value="Red">
+                    <Setter Property="Color" Value="Green" />
+                    <!--  Multiple Setter elements are allowed  -->
+                </DataTrigger>
+            </BoxView.Triggers>
+        </BoxView>
+        <!--  Inner BoxView for the background  -->
+        <BoxView
+            Margin="1"
+            CornerRadius="7"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="FillAndExpand"
+            Color="White">
+            <BoxView.Triggers>
+                <DataTrigger
+                    Binding="{Binding Source={x:Reference CustomGrid}, Path=BackgroundColor}"
+                    TargetType="BoxView"
+                    Value="Green">
+                    <Setter Property="Margin" Value="2" />
+                    <Setter Property="CornerRadius" Value="6" />
+                </DataTrigger>
+                <DataTrigger
+                    Binding="{Binding Source={x:Reference CustomGrid}, Path=BackgroundColor}"
+                    TargetType="BoxView"
+                    Value="Red">
+                    <Setter Property="Margin" Value="1" />
+                    <Setter Property="CornerRadius" Value="7" />
+                </DataTrigger>
+            </BoxView.Triggers>
+        </BoxView>
+        <ContentPresenter />
+    </Grid>
+</ContentView>
