@@ -4,101 +4,104 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:MauiApp2">
-    <Grid RowDefinitions="Auto,Auto, *,Auto,*" VerticalOptions="Start">
-        <Grid>
-            <Label
-                Margin="10"
-                FontSize="Medium"
-                Text="Animation On/Off"
-                TextColor="Red" />
-            <Switch
-                x:Name="SwitchAnimation"
-                HorizontalOptions="End"
-                IsToggled="False"
-                Toggled="Switch_Toggled" />
-
-        </Grid>
-        <Label
-            Grid.Row="1"
-            Margin="10"
-            FontSize="Medium"
-            Text="List 1"
-            TextColor="Red" />
-        <CollectionView
-            x:Name="collectionView"
-            Grid.Row="2"
-            HeightRequest="100"
-            ItemsLayout="HorizontalList">
-            <CollectionView.ItemsSource>
-                <x:Array Type="{x:Type x:String}">
-                    <x:String>Entry 1</x:String>
-                    <x:String>Entry 2</x:String>
-                    <x:String>Entry 3</x:String>
-                    <x:String>Entry 4</x:String>
-                    <x:String>Entry 5</x:String>
-                    <x:String>Entry 6</x:String>
-                    <x:String>Entry 7</x:String>
-                    <x:String>Entry 8</x:String>
-                    <x:String>Entry 9</x:String>
-                    <x:String>Entry 10</x:String>
-                </x:Array>
-            </CollectionView.ItemsSource>
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <StackLayout
-                        Margin="4"
-                        BackgroundColor="Azure"
-                        HeightRequest="100"
-                        WidthRequest="250">
-                        <Entry Placeholder="{Binding .}" />
-                        <StackLayout.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="OnItemTapped" />
-                        </StackLayout.GestureRecognizers>
-                    </StackLayout>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-        <Label
-            Grid.Row="3"
-            Margin="10"
-            FontSize="Medium"
-            Text="List 2"
-            TextColor="Red" />
-        <CollectionView
-            x:Name="collectionView2"
-            Grid.Row="4"
-            HeightRequest="100"
-            ItemsLayout="HorizontalList">
-            <CollectionView.ItemsSource>
-                <x:Array Type="{x:Type x:String}">
-                    <x:String>Entry 1</x:String>
-                    <x:String>Entry 2</x:String>
-                    <x:String>Entry 3</x:String>
-                    <x:String>Entry 4</x:String>
-                    <x:String>Entry 5</x:String>
-                    <x:String>Entry 6</x:String>
-                    <x:String>Entry 7</x:String>
-                    <x:String>Entry 8</x:String>
-                    <x:String>Entry 9</x:String>
-                    <x:String>Entry 10</x:String>
-                </x:Array>
-            </CollectionView.ItemsSource>
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <StackLayout
-                        Margin="4"
-                        BackgroundColor="Azure"
-                        HeightRequest="100"
-                        WidthRequest="250">
-                        <Entry Placeholder="{Binding .}" />
-                        <StackLayout.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="OnItem2Tapped" />
-                        </StackLayout.GestureRecognizers>
-                    </StackLayout>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-    </Grid>
-
+    <ScrollView x:Name="VerticalScroll" Orientation="Vertical">
+        <VerticalStackLayout Padding="10" Spacing="5">
+            <Label Text="ScrollView" TextColor="Black" />
+            <ScrollView
+                x:Name="HorizontalScroll"
+                HorizontalScrollBarVisibility="Never"
+                Orientation="Horizontal">
+                <HorizontalStackLayout Spacing="10">
+                    <Border
+                        Padding="5"
+                        BackgroundColor="#f0f0f0"
+                        HeightRequest="200"
+                        Stroke="Gray"
+                        StrokeShape="RoundRectangle 8"
+                        StrokeThickness="1"
+                        WidthRequest="250" />
+                    <Border
+                        Padding="5"
+                        BackgroundColor="#f0f0f0"
+                        Stroke="Gray"
+                        StrokeShape="RoundRectangle 8"
+                        StrokeThickness="1"
+                        WidthRequest="250" />
+                    <Border
+                        Padding="5"
+                        BackgroundColor="#f0f0f0"
+                        Stroke="Gray"
+                        StrokeShape="RoundRectangle 8"
+                        StrokeThickness="1"
+                        WidthRequest="250" />
+                </HorizontalStackLayout>
+            </ScrollView>
+            <Label Text="ListView" TextColor="Black" />
+            <CollectionView
+                HeightRequest="200"
+                HorizontalScrollBarVisibility="Never"
+                ItemsLayout="HorizontalList"
+                ItemsSource="{x:Static local:MainPage.HorizontalItems}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border
+                            Margin="5"
+                            Padding="5"
+                            BackgroundColor="#f0f0f0"
+                            HeightRequest="200"
+                            Stroke="Gray"
+                            StrokeShape="RoundRectangle 8"
+                            StrokeThickness="1"
+                            WidthRequest="250">
+                            <Label
+                                HorizontalOptions="Center"
+                                Text="{Binding}"
+                                VerticalOptions="Center" />
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <!--  15 buttons with HeightRequest 42  -->
+            <Button HeightRequest="50" Text="Button 1" />
+            <Button HeightRequest="50" Text="Button 2" />
+            <Button HeightRequest="50" Text="Button 3" />
+            <Button HeightRequest="50" Text="Button 4" />
+            <Button HeightRequest="50" Text="Button 5" />
+            <Button HeightRequest="50" Text="Button 6" />
+            <Button HeightRequest="50" Text="Button 7" />
+            <Button HeightRequest="50" Text="Button 8" />
+            <Button HeightRequest="50" Text="Button 9" />
+            <Button HeightRequest="50" Text="Button 10" />
+            <Button HeightRequest="50" Text="Button 11" />
+            <Button HeightRequest="50" Text="Button 12" />
+            <Button HeightRequest="50" Text="Button 13" />
+            <Button HeightRequest="50" Text="Button 14" />
+            <Button HeightRequest="50" Text="Button 15" />
+            <!--  Change Scroll by listview -->
+            <CollectionView
+                HeightRequest="200"
+                HorizontalScrollBarVisibility="Never"
+                ItemsLayout="HorizontalList"
+                ItemsSource="{x:Static local:MainPage.HorizontalItems}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border
+                            Margin="5"
+                            Padding="10"
+                            BackgroundColor="LightGray"
+                            HeightRequest="200"
+                            Stroke="Gray"
+                            StrokeThickness="1"
+                            WidthRequest="250">
+                            <Label
+                                HorizontalOptions="Center"
+                                Text="{Binding}"
+                                VerticalOptions="Center" />
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
 
 </ContentPage>

@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MauiApp2.TabAndCollection"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:cards="clr-namespace:PanCardView;assembly=PanCardView"
+    xmlns:local="clr-namespace:MauiApp2"
+    x:DataType="local:TabAndCollectionViewModel"
+    Shell.NavBarIsVisible="False">
+    <Border
+        Margin="0,0,0,0"
+        BackgroundColor="White"
+        StrokeShape="RoundRectangle 20,20,0,0"
+        StrokeThickness="0">
+        <Grid RowDefinitions="50,*" VerticalOptions="Fill">
+            <VerticalStackLayout x:Name="VerticaloftabsCustom" BackgroundColor="Yellow">
+                <BoxView
+                    Margin="0,0,0,0"
+                    BackgroundColor="#cccccc"
+                    HeightRequest="1"
+                    WidthRequest="2000" />
+            </VerticalStackLayout>
+            <cards:CarouselView
+                x:Name="CarouselView_Main"
+                Grid.Row="1"
+                Padding="0,0,0,0"
+                IsCyclical="False"
+                IsVerticalSwipeEnabled="False"
+                IsViewReusingEnabled="True">
+                <cards:CarouselView.ItemsSource>
+                    <x:Array Type="{x:Type View}">
+                        <local:DisplaysContentView />
+                        <local:DisplaysLowBatteryContentView BindingContext="{Binding DisplaysLowBatteryViewModel}" />
+                        <local:DisplaysContentView1 BindingContext="{Binding DisplaysContentViewModel1}" />
+                        <local:DisplaysContentView BindingContext="{Binding DisplaysContentViewModel}" />
+                        <local:DisplaysContentView />
+                    </x:Array>
+                </cards:CarouselView.ItemsSource>
+            </cards:CarouselView>
+        </Grid>
+    </Border>
+</ContentPage>

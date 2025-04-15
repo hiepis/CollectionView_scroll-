@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="MauiApp2.DisplaysContentView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:MauiApp2"
+    xmlns:mauitookit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    x:DataType="local:DisplaysContentViewModel"
+    Shell.NavBarIsVisible="False">
+    <ContentView.Content>
+        <Grid>
+            <RefreshView IsRefreshing="{Binding IsRefreshing}" Refreshing="RefreshView_Refreshing">
+                <CollectionView
+                    Footer="{Binding .}"
+                    Header="{Binding}"
+                    ItemsSource="{Binding ItemsCollection}"
+                    RemainingItemsThreshold="1"
+                    RemainingItemsThresholdReachedCommand="{Binding RemainingItemsThresholdReachedCommand}"
+                    SelectionMode="None"
+                    VerticalOptions="Fill"
+                    VerticalScrollBarVisibility="Never">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="local:ItemModel">
+                            <ContentView Padding="5" BackgroundColor="White">
+                                <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
+                                    <VerticalStackLayout Margin="16,0" Spacing="6">
+                                        <Label Text="Default line" />
+                                        <Label Text="{Binding Title}" />
+                                        <Label Text="{Binding Description}" />
+                                        <Label Text="{Binding Time}" />
+                                        <Label Text="{Binding Description}" />
+                                    </VerticalStackLayout>
+                                    <Grid Grid.Column="1">
+                                        <Label
+                                            Grid.Row="2"
+                                            Grid.Column="1"
+                                            FontSize="12"
+                                            Text="{Binding Description}"
+                                            TextColor="Gray" />
+                                    </Grid>
+                                    <BoxView
+                                        Grid.ColumnSpan="2"
+                                        HeightRequest="1"
+                                        VerticalOptions="End"
+                                        WidthRequest="3000"
+                                        Color="Green" />
+                                </Grid>
+                            </ContentView>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                    <CollectionView.EmptyView>
+                        <ContentView>
+                            <StackLayout
+                                Margin="0,0,0,135"
+                                HorizontalOptions="CenterAndExpand"
+                                VerticalOptions="CenterAndExpand">
+                                <Image
+                                    HeightRequest="96"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center"
+                                    WidthRequest="96" />
+                                <Label
+                                    HorizontalOptions="Fill"
+                                    HorizontalTextAlignment="Center"
+                                    Text="aaa"
+                                    TextColor="#aaaaaa" />
+                            </StackLayout>
+                        </ContentView>
+                    </CollectionView.EmptyView>
+                    <CollectionView.FooterTemplate>
+                        <DataTemplate>
+                            <Grid HeightRequest="135" />
+                        </DataTemplate>
+                    </CollectionView.FooterTemplate>
+                    <CollectionView.HeaderTemplate>
+                        <DataTemplate>
+                            <Grid Padding="6" HeightRequest="10" />
+                        </DataTemplate>
+                    </CollectionView.HeaderTemplate>
+                </CollectionView>
+            </RefreshView>
+            <Grid
+                BackgroundColor="{StaticResource Gray400}"
+                IsVisible="{Binding IsStart}"
+                VerticalOptions="FillAndExpand" />
+            <ActivityIndicator
+                BackgroundColor="Transparent"
+                HeightRequest="{OnPlatform Android='50',
+                                           iOS='60'}"
+                HorizontalOptions="Center"
+                IsRunning="{Binding IsAddMore}"
+                VerticalOptions="Center"
+                WidthRequest="{OnPlatform Android='50',
+                                          iOS='60'}" />
+        </Grid>
+
+    </ContentView.Content>
+</ContentView>

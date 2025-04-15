@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="MauiApp2.ButtonContentControl"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:MauiApp2"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    Shell.NavBarIsVisible="False">
+    <ContentView.Resources>
+        <Style TargetType="Label">
+            <Setter Property="TextColor" Value="Black" />
+        </Style>
+    </ContentView.Resources>
+    <Grid x:Name="GridState" HorizontalOptions="Fill">
+        <!--  Support iOS touch effect from Maui Toolkit, prevent to keep last state on touching in scrollview  -->
+        <Grid.Behaviors>
+            <toolkit:TouchBehavior
+                Command="{Binding CommandButton, Source={x:Reference ButtonName}, Mode=TwoWay}"
+                CommandParameter="{Binding CommandParameterButton, Source={x:Reference ButtonName}, Mode=TwoWay}"
+                DefaultBackgroundColor="Transparent"
+                IsEnabled="{OnPlatform Android='false',
+                                       iOS='true'}"
+                LongPressCommand="{Binding CommandLongButton, Source={x:Reference ButtonName}, Mode=TwoWay}"
+                LongPressCommandParameter="{Binding CommandParameterButton, Source={x:Reference ButtonName}, Mode=TwoWay}"
+                LongPressDuration="1000"
+                PressedBackgroundColor="{StaticResource Gray200}" />
+        </Grid.Behaviors>
+        <VerticalStackLayout
+            Margin="{Binding ThicknessMultiSelection, Source={x:Reference ButtonName}, Mode=TwoWay}"
+            HorizontalOptions="Fill"
+            Spacing="0"
+            VerticalOptions="Center">
+
+
+            <Grid ColumnDefinitions="65*,35*" HorizontalOptions="Fill">
+                <VerticalStackLayout
+                    Margin="8,4,0,4"
+                    HorizontalOptions="Start"
+                    Spacing="0"
+                    VerticalOptions="Start">
+                    <Label
+                        HorizontalOptions="StartAndExpand"
+                        Text="{Binding SerialNumber, Source={x:Reference ButtonName}, Mode=TwoWay}"
+                        VerticalOptions="Start" />
+                    <Label
+                        HorizontalOptions="Start"
+                        LineBreakMode="TailTruncation"
+                        MaxLines="1"
+                        Text="{Binding SummarizedStatus, Source={x:Reference ButtonName}, Mode=TwoWay}"
+                        VerticalOptions="StartAndExpand" />
+                </VerticalStackLayout>
+                <VerticalStackLayout
+                    Grid.Column="1"
+                    Margin="0,4,12,4"
+                    HorizontalOptions="End"
+                    Spacing="0"
+                    VerticalOptions="StartAndExpand">
+                    <Label
+                        HorizontalOptions="End"
+                        Text="{Binding DisplayDefinition, Source={x:Reference ButtonName}, Mode=TwoWay}"
+                        VerticalOptions="Start" />
+                    <Label
+                        HorizontalOptions="End"
+                        Text="{Binding LastSuccessfullyCommunication, Source={x:Reference ButtonName}, Mode=TwoWay}"
+                        VerticalOptions="StartAndExpand" />
+                </VerticalStackLayout>
+            </Grid>
+            <Grid
+                Margin="8,8,8,4"
+                ColumnDefinitions="Auto,*"
+                ColumnSpacing="0"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="CenterAndExpand">
+                <Label
+                    LineBreakMode="TailTruncation"
+                    MaxLines="1"
+                    Text="{Binding AttachedProductDescriptionString, Source={x:Reference ButtonName}, Mode=TwoWay}" />
+                <Frame
+                    Grid.Column="1"
+                    Margin="2,2,0,0"
+                    Padding="4,0,4,0"
+                    BackgroundColor="#222222"
+                    CornerRadius="2"
+                    HasShadow="False"
+                    HorizontalOptions="Start"
+                    IsVisible="{Binding IsVisibleProducts, Source={x:Reference ButtonName}, Mode=TwoWay}"
+                    VerticalOptions="CenterAndExpand">
+                    <Label
+                        Margin="0,0,0,0"
+                        FontFamily="seguisb"
+                        HorizontalOptions="Center"
+                        MaxLines="1"
+                        TextColor="White"
+                        VerticalOptions="Center">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="+" TextColor="White" />
+                                <Span Text="{Binding CountProducts, Source={x:Reference ButtonName}, Mode=TwoWay}" TextColor="White" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </Frame>
+            </Grid>
+        </VerticalStackLayout>
+        <Grid
+            BackgroundColor="White"
+            IsVisible="{Binding IsAssign, Source={x:Reference ButtonName}, Mode=TwoWay}"
+            Opacity="0.5" />
+        <!--  Support Android  touch effect by Button  -->
+        <Button
+            x:Name="ButtonState"
+            BackgroundColor="Transparent"
+            Clicked="ButtonState_Clicked"
+            CornerRadius="0"
+            IsVisible="{OnPlatform Android='true',
+                                   iOS='false'}"
+            Pressed="ButtonState_Pressed"
+            Released="ButtonState_Released">
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Pressed">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="{OnPlatform Android='Transparent', iOS='Transparent'}" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </VisualStateManager.VisualStateGroups>
+        </Button>
+    </Grid>
+</ContentView>

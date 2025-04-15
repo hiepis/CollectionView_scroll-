@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="MauiApp2.DisplaysLowBatteryContentView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:MauiApp2"
+    xmlns:mauitookit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    x:DataType="local:DisplaysLowBatteryContentViewModel"
+    Shell.NavBarIsVisible="False">
+    <ContentView.Resources>
+        <Style TargetType="Label">
+            <Setter Property="TextColor" Value="Black" />
+        </Style>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <Grid>
+            <Border>
+                <RefreshView IsRefreshing="{Binding IsRefreshing}" Refreshing="RefreshView_Refreshing">
+                    <CollectionView
+                        x:Name="Cview"
+                        BackgroundColor="White"
+                        Footer="{Binding .}"
+                        ItemsSource="{Binding ItemsCollection}"
+                        RemainingItemsThreshold="1"
+                        RemainingItemsThresholdReachedCommand="{Binding RemainingItemsThresholdReachedCommand}"
+                        SelectionMode="None"
+                        VerticalOptions="Fill"
+                        VerticalScrollBarVisibility="Never">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Vertical" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid
+                                    x:DataType="local:DashboardDisplayShowModel"
+                                    ColumnDefinitions="8,*"
+                                    HeightRequest="94">
+                                    <Grid
+                                        BackgroundColor="{Binding ColorInfo}"
+                                        HorizontalOptions="Start"
+                                        WidthRequest="8" />
+                                    <Grid
+                                        Grid.Column="1"
+                                        Margin="{Binding ThicknessMultiSelection}"
+                                        BackgroundColor="White">
+                                        <local:ButtonContentControl
+                                            AttachedProductDescriptionString="{Binding AttachedProductDescriptionString}"
+                                            BackgroundColor="Transparent"
+                                            CommandButton="{Binding SelectCommand}"
+                                            CommandLongButton="{Binding GestureLongPressCommand}"
+                                            CommandParameterButton="{Binding}"
+                                            CountProducts="{Binding CountProducts}"
+                                            DisplayDefinition="{Binding DisplayDefinition}"
+                                            HorizontalOptions="Fill"
+                                            IsAssign="{Binding IsAssign}"
+                                            IsVisibleProducts="{Binding IsVisibleProducts}"
+                                            LastSuccessfullyCommunication="{Binding LastSuccessfullyCommunication}"
+                                            SerialNumber="{Binding SerialNumber}"
+                                            SummarizedStatus="{Binding SummarizedStatus}"
+                                            ThicknessMultiSelection="0,0" />
+                                    </Grid>
+
+                                    <Grid
+                                        Grid.Column="1"
+                                        Margin="12,0"
+                                        HorizontalOptions="Start"
+                                        IsVisible="{Binding IsMultiSelection}"
+                                        WidthRequest="52">
+                                        <Grid.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding CommandChecked}" CommandParameter="{Binding}" />
+                                        </Grid.GestureRecognizers>
+                                        <Ellipse
+                                            Fill="{Binding ColorFillSelected}"
+                                            HeightRequest="36"
+                                            HorizontalOptions="Start"
+                                            Stroke="{Binding ColorStrokeSelected}"
+                                            StrokeThickness="1"
+                                            VerticalOptions="Center"
+                                            WidthRequest="36" />
+                                        <Image
+                                            Margin="11,0"
+                                            HeightRequest="9"
+                                            HorizontalOptions="Start"
+                                            IsVisible="{Binding IsSelected}"
+                                            Source="dissplayview_selected_small"
+                                            VerticalOptions="Center"
+                                            WidthRequest="14" />
+                                    </Grid>
+                                    <BoxView
+                                        Grid.ColumnSpan="2"
+                                        BackgroundColor="{StaticResource bgtxtdarkday}"
+                                        HeightRequest="1"
+                                        VerticalOptions="End" />
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                        <CollectionView.EmptyView>
+                            <ContentView>
+                                <StackLayout
+                                    Margin="0,0,0,135"
+                                    HorizontalOptions="CenterAndExpand"
+                                    VerticalOptions="CenterAndExpand">
+                                    <Image
+                                        HeightRequest="96"
+                                        HorizontalOptions="Center"
+                                        Source="icon_message_nomessage"
+                                        VerticalOptions="Center"
+                                        WidthRequest="96" />
+                                    <Label
+                                        HorizontalOptions="Fill"
+                                        HorizontalTextAlignment="Center"
+                                        Text="Test"
+                                        TextColor="#aaaaaa" />
+                                </StackLayout>
+                            </ContentView>
+                        </CollectionView.EmptyView>
+                        <CollectionView.FooterTemplate>
+                            <DataTemplate>
+                                <Grid HeightRequest="135" />
+                            </DataTemplate>
+                        </CollectionView.FooterTemplate>
+                    </CollectionView>
+                </RefreshView>
+            </Border>
+
+            <Grid
+                BackgroundColor="{StaticResource Gray400}"
+                IsVisible="{Binding IsStart}"
+                VerticalOptions="FillAndExpand" />
+            <ActivityIndicator
+                BackgroundColor="Transparent"
+                HeightRequest="{OnPlatform Android='50',
+                                           iOS='60'}"
+                HorizontalOptions="Center"
+                IsRunning="{Binding IsAddMore}"
+                VerticalOptions="Center"
+                WidthRequest="{OnPlatform Android='50',
+                                          iOS='60'}" />
+        </Grid>
+
+    </ContentView.Content>
+</ContentView>
